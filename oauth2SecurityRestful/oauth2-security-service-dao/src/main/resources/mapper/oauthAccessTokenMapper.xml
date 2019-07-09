@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkSpringBoot2.oauth2Security.DAOS.dao.oauth.OauthAccessTokenDAO" >
+
+    <select id="selectOauthAccessToken"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+       select token_id, token from oauth_access_token where token_id =  #{token_id}
+    </select>
+
+    <select id="getTokenByAuthenticationId"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+       select token_id, token from oauth_access_token where authentication_id = #{authentication_id}
+    </select>
+
+    <select id="insertAccessToken"
+            parameterType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+      insert into oauth_access_token
+      (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token)
+      values (#{token_id}, #{token}, #{authentication_id}, #{user_name}, #{client_id}, #{authentication}, #{refresh_token})
+    </select>
+
+     <select id="selectAccessToken"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+        select token_id, token from oauth_access_token where token_id = #{token_id}
+     </select>
+
+     <select id="selectAccessTokenAuthentication"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+      select token_id, authentication from oauth_access_token where token_id = #{token_id}
+     </select>
+
+    <select id="deleteAccessToken"
+            parameterType="String">
+       delete from oauth_access_token where token_id = #{token_id}
+     </select>
+
+    <select id="deleteAccessTokenFromRefreshToken"
+            parameterType="String">
+       delete from oauth_access_token where refresh_token = #{refresh_token}
+     </select>
+
+    <select id="selectAccessTokensFromClientId"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+       select token_id, token from oauth_access_token where client_id = #{client_id}
+     </select>
+
+    <select id="selectAccessTokensFromUserName"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+       select token_id, token from oauth_access_token where user_name = #{user_name}
+     </select>
+
+    <select id="selectAccessTokensFromUserNameAndClientId"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthAccessToken">
+       select token_id, token from oauth_access_token where user_name = #{user_name} and client_id = #{client_id}
+     </select>
+
+
+</mapper>
