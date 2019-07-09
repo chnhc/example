@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkSpringBoot2.oauth2Security.DAOS.dao.oauth.OauthRefreshTokenDAO" >
+
+
+    <select id="insertRefreshToken"
+            parameterType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthRefreshToken">
+       insert into oauth_refresh_token (token_id, token, authentication) values (#{token_id}, #{token}, #{authentication})
+     </select>
+
+    <select id="selectRefreshToken"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthRefreshToken">
+       select token_id, token from oauth_refresh_token where token_id = #{token_id}
+     </select>
+
+    <select id="deleteRefreshToken"
+            parameterType="String">
+       delete from oauth_refresh_token where token_id = #{token_id}
+     </select>
+
+    <select id="selectRefreshTokenAuthentication"
+            parameterType="String"
+            resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.oauth.OauthRefreshToken">
+       select token_id, authentication from oauth_refresh_token where token_id = #{token_id}
+     </select>
+
+
+    <delete id="deleteRefreshTokenByAccessToken" >
+
+        DELETE FROM oauth_refresh_token WHERE token_id = (
+            SELECT refresh_token FROM oauth_access_token WHERE token_id = #{token_id}
+         )
+    </delete>
+
+
+    <select id="readRefreshTokenValueByAccessToken" resultType="String">
+
+        SELECT refresh_token FROM oauth_access_token WHERE token_id = #{token_id}
+
+    </select>
+
+</mapper>

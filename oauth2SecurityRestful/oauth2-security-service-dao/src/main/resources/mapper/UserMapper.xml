@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkSpringBoot2.oauth2Security.DAOS.dao.user.UserDAO" >
+
+
+    <update id="updateAdmin" parameterType="com.kkSpringBoot2.oauth2Security.DAOS.entity.user.UserEntity">
+
+        update user set user_id = #{user_id}, user_name = #{user_name}, user_pwd = #{user_pwd}, user_update_time = #{user_update_time} WHERE type = 'admin'
+
+    </update>
+
+    <select id="selectAdminByUserId" resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.user.UserEntity">
+
+        select * from user where user_id = #{user_id} and type = 'admin'
+
+    </select>
+
+    <select id="selectAdmin" resultType="com.kkSpringBoot2.oauth2Security.DAOS.entity.user.UserEntity">
+
+        select * from user where type = 'admin'
+
+    </select>
+
+</mapper>
